@@ -7,7 +7,9 @@ output: html_document
 
 ```{r}
 library(tseries)
+#Download SNP Data
 SNPdata <- get.hist.quote('^gspc',quote="Close")
+# Exploratory Data Analysis
 length(SNPdata)
 class(SNPdata)
 summary(SNPdata)
@@ -15,12 +17,14 @@ head(SNPdata)
 ```
 
 ```{r}
+#Calclulate Log Return
 SNPret <- log(lag(SNPdata)) - log(SNPdata)
+#Calcuate Volatility over 250 trading Days
 SNPvol <- sd(SNPret) * sqrt(250) * 100
 ```
 
 ```{r}
-## volatility
+## volatility Function
 get
 Vol <- function(d, logrets)
 {
@@ -38,7 +42,7 @@ Vol <- function(d, logrets)
 ```
 
 ```{r}
-# Recreate Figure 6.12 in the text on page 155
+# Create Volatility over the period of time
 
 volest <- Vol(10,SNPret)
 volest2 <- Vol(30,SNPret)

@@ -124,7 +124,9 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>library(tseries)
+#Download SNP Data
 SNPdata &lt;- get.hist.quote('^gspc',quote=&quot;Close&quot;)
+# Exploratory Data Analysis
 length(SNPdata)</code></pre>
 <pre><code>## [1] 6436</code></pre>
 <pre class="r"><code>class(SNPdata)</code></pre>
@@ -145,14 +147,16 @@ length(SNPdata)</code></pre>
 ## 1991-01-07 315.44
 ## 1991-01-08 314.90
 ## 1991-01-09 311.49</code></pre>
-<pre class="r"><code>SNPret &lt;- log(lag(SNPdata)) - log(SNPdata)
+<pre class="r"><code>#Calclulate Log Return
+SNPret &lt;- log(lag(SNPdata)) - log(SNPdata)
+#Calcuate Volatility over 250 trading Days
 SNPvol &lt;- sd(SNPret) * sqrt(250) * 100</code></pre>
-<pre class="r"><code>## volatility
+<pre class="r"><code>## volatility Function
 get</code></pre>
 <pre><code>## function (x, pos = -1L, envir = as.environment(pos), mode = &quot;any&quot;, 
 ##     inherits = TRUE) 
 ## .Internal(get(x, envir, mode, inherits))
-## &lt;bytecode: 0x7fd6c9b432d0&gt;
+## &lt;bytecode: 0x7ffa5b22dad0&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <pre class="r"><code>Vol &lt;- function(d, logrets)
 {
@@ -166,7 +170,7 @@ get</code></pre>
     }
     sqrt(varlist)
 }</code></pre>
-<pre class="r"><code># Recreate Figure 6.12 in the text on page 155
+<pre class="r"><code># Create Volatility over the period of time
 
 volest &lt;- Vol(10,SNPret)
 volest2 &lt;- Vol(30,SNPret)
